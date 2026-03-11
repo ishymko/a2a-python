@@ -1,0 +1,11 @@
+{
+  "packages": {
+    ".": {
+      "release-type": "python",
+      "prerelease": true,
+      "prerelease-type": "alpha",
+      "release-as": "1.0.0-alpha.0",
+      "changelog-path": "CHANGELOG-1.0.md"
+    }
+  }
+}
