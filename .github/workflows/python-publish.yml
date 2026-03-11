@@ -33,6 +33,7 @@ jobs:
 
   pypi-publish:
     runs-on: ubuntu-latest
+    if: github.event.release.prerelease == false
     needs:
       - release-build
     permissions:
