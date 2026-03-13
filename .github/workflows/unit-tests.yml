@@ -69,7 +69,7 @@ jobs:
         if: github.event_name == 'pull_request' && matrix.python-version == '3.13'
         run: |
           uv run pytest --cov=a2a --cov-report=json --cov-report=html:coverage
-          mv coverage.json coverage-base.json
+          mv coverage.json /tmp/coverage-base.json
 
       - name: Checkout PR Branch (Restore)
         if: github.event_name == 'pull_request' && matrix.python-version == '3.13'
@@ -82,6 +82,7 @@ jobs:
         run: |
           uv run pytest --cov=a2a --cov-report=json --cov-report=html:coverage --cov-report=term --cov-fail-under=88
           mv coverage.json coverage-pr.json
+          cp /tmp/coverage-base.json coverage-base.json
 
       - name: Save Metadata
         if: github.event_name == 'pull_request' && matrix.python-version == '3.13'
