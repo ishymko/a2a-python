@@ -89,7 +89,7 @@ jobs:
             markdown += `[⬇️ **Download Full Report**](${process.env.ARTIFACT_URL})\n\n`;
 
             const metric = 'statements';
-            const getPct = (summaryItem, m) => summaryItem && summaryItem[m] ? summaryItem[m].pct : 0;
+            const getPct = (summaryItem, m) => summaryItem && summaryItem[m] ? Number(summaryItem[m].pct) : 0;
             
             const formatDiff = (oldPct, newPct) => {
               const diff = (newPct - oldPct).toFixed(2);
@@ -125,9 +125,9 @@ jobs:
               const linkedPath = `[${relativeFilePath}](${fileUrl(relativeFilePath)})`;
 
               if (!baseFile && prFile) {
-                newRows.push(`| ${linkedPath} (**new**) | — | ${newPct}% | — |\n`);
+                newRows.push(`| ${linkedPath} (**new**) | — | ${newPct.toFixed(2)}% | — |\n`);
               } else if (oldPct !== newPct) {
-                changedRows.push(`| ${linkedPath} | ${oldPct}% | ${newPct}% | ${formatDiff(oldPct, newPct)} |\n`);
+                changedRows.push(`| ${linkedPath} | ${oldPct.toFixed(2)}% | ${newPct.toFixed(2)}% | ${formatDiff(oldPct, newPct)} |\n`);
               }
             }
 
@@ -147,7 +147,7 @@ jobs:
               const oldTotalPct = getPct(baseSummary.total, metric);
               const newTotalPct = getPct(prSummary.total, metric);
               if (oldTotalPct !== newTotalPct) {
-                markdown += `| **Total** | ${oldTotalPct}% | ${newTotalPct}% | ${formatDiff(oldTotalPct, newTotalPct)} |\n`;
+                markdown += `| **Total** | ${oldTotalPct.toFixed(2)}% | ${newTotalPct.toFixed(2)}% | ${formatDiff(oldTotalPct, newTotalPct)} |\n`;
               }
             }
 
